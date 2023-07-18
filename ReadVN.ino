@@ -1,3 +1,14 @@
+// READS VECTORNAV'S VN-300'S INE OUTPUT - REAL CONNECTION UNTESTED - ONLY SINGLE STRINGS USED
+// EXAMPLE: $VNISE,-024.263,-007.915,+005.125,0,0,0,-000.025,-000.095,-000.026,-01.343,-00.888,-09.664,+00.015308,+00.001433,+00.000006*62
+// COORDINATES HIDDEN TO PREVENT DOXXING...
+
+// SEGMENTS THE EXAMPLE STRING INTO A REDEABLE FORMAT - CAN BE ADAPTED EASILY ADAPTED TO SET VALUES INTO AN ARRAY
+
+// SKIPS ALL DATA AFTER "*" AND SKIPS "$VNISE"
+
+// CAN BE ADAPTED TO SEGMENT DIFFERENT VN-300 ASCII OUTPUTS - MODIFY typeInput AND YOUR ARRAY ACCORDINGLY
+
+
 const int bufferSize = 256; // Define the maximum length of the input string
 
 #define SIZEINPUT 1
@@ -32,14 +43,13 @@ void loop() {
       // Tokenize the input string based on the comma delimiter
       char* token = strtok(buffer, ",");
       token = strtok(NULL, ","); // Get the next token
+      
       while (token != NULL) {
         if(valtest == 0){
           valtest =1;
-                  float value = atof(token);
-      
-  val1[i] = value;
+          float value = atof(token);
+          val1[i] = value;
     
-          
         }
         else{
         float value = atof(token);
@@ -47,7 +57,7 @@ void loop() {
   Serial.print(typeInput[i]);
           Serial.print(" :");
           Serial.println(float(value-val1[i]),5);
-i++;
+          i++;
 
         token = strtok(NULL, ","); // Get the next token
         }
